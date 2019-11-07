@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href={% static 'base.css' %}>
+</head>
+<body>
+<div class="topnav" id="navbar">
+    <a id="login">log in</a>
+    <a id="register" href="http://127.0.0.1:8000/signup">register</a>
+    <a class="active" id="homepage" href="http://127.0.0.1:8000/home">Home</a>
+</div>
+{% block content %}
+{% endblock %}
+</body>
+</html>
