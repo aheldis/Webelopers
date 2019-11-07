@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
-from polls.forms import SignUpForm
+from polls.forms import SignUpForm, LogInForm
 
 
 def html_start(request):
@@ -27,12 +27,14 @@ def signup(request):
 
 
 def my_view(request):
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(request, username=username, password=password)
-    if user is not None:
-        login(request, user)
-
+    if request.method == 'POST':
+        form = LogInForm(data=request.POST)
+        if form.is_valid():
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
     else:
-        # Return an 'invalid login' error message.
-        ...
+        form = LogInForm()
+    return render(request, 'login.html', {'form': form})
