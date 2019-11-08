@@ -77,5 +77,5 @@ def contact_us(request):
 
 def profile(request):
     global user
-    print(user)
-    return render(request, 'profile.html', {'user': user, 'logged_in': logged_in})
+    return render(request, 'profile.html',
+                  {'user': user, 'logged_in': logged_in, 'last_name': user.get_fullname.split()[1]})
