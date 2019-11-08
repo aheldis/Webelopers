@@ -15,9 +15,16 @@
                     <p style="color: red">{{ error }}</p>
                 {% endfor %}
         {% endfor %}
-        {% if form.errors %}
-            error!
+        {% if error == "The two password fields didn't match." %}
+            <div id=”errors”>
+                گذرواژه و تکرار گذرواژه یکسان نیستند
+            </div>
         {% endif %}
-        <button type="submit">Sign up</button>
+        {% if error == "A user with that username already exists." %}
+            <div id=”errors”>
+                نام کاربری شما در سیستم موجود است
+            </div>
+        {% endif %}
+        <button name="submit" type="submit">sign up</button>
     </form>
 {% endblock %}

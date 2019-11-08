@@ -20,10 +20,14 @@ def signup(request):
             login(request, user)
             return render(request, 'home.html', {'form': form, 'logged_in': True})
         else:
-            return render(request, 'signup.html', {'form': form, 'logged_in': False, 'error': form.errors})
+            if 'password2' in form.errors.as_data():
+                error = list(form.errors.as_data()['password2'][0])[0]
+            elif 'username' in form.errors.as_data():
+                error = list(form.errors.as_data()['username'][0])[0]
+            return render(request, 'signup.html', {'form': form, 'logged_in': False, 'error': error})
     else:
         form = SignUpForm()
-    return render(request, 'signup.html', {'form': form, 'logged_in': False})
+    return render(request, 'signup.html', {'form': form, 'logged_in': False, 'error': "nothing"})
 
 
 def my_view(request):
