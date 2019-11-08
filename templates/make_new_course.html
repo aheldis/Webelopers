@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <h2>New Course Form</h2>
+    <form id="make_course" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit" type="submit">submit</button>
+    </form>
+{% endblock %}

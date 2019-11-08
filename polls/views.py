@@ -2,7 +2,8 @@ from django.contrib.auth import authenticate, login
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 
-from polls.forms import SignUpForm, LogInForm, ContactForm, SettingForm
+from polls.forms import SignUpForm, LogInForm, ContactForm, SettingForm, MakeCourse
+from polls.models import DaySelection, Article
 
 logged_in = False
 user = None
@@ -91,7 +92,6 @@ def setting(request):
         if form.is_valid():
             user.first_name = form.cleaned_data['first_name']
             user.last_name = form.cleaned_data['last_name']
-            # user.save()
             return render(request, 'profile.html', {'user': user, 'logged_in': logged_in})
     else:
         form = SettingForm()
@@ -100,3 +100,30 @@ def setting(request):
 
 def panel(request):
     return render(request, 'panel.html', {'logged_in': logged_in})
+
+
+def make_new_course(request):
+    try:
+        DaySelection.objects.create(day='0').save()
+        DaySelection.objects.create(day='1').save()
+        DaySelection.objects.create(day='2').save()
+        DaySelection.objects.create(day='3').save()
+        DaySelection.objects.create(day='4').save()
+    except Exception:
+        pass
+    if request.method == 'POST':
+        form = MakeCourse(data=request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.start_time = instance.start_time.strptime(instance.start_time.strftime("%H:%M"), "%H:%M")
+            instance.end_time = instance.end_time.strptime(instance.end_time.strftime("%H:%M"), "%H:%M")
+            instance.save()
+            return render(request, 'make_new_course.html', {'form': form, 'logged_in': logged_in})
+    else:
+        form = MakeCourse()
+    return render(request, 'make_new_course.html', {'form': form, 'logged_in': logged_in})
+
+
+def all_courses(request):
+    courses = Article.objects.all()
+    return render(request, 'all_courses.html', {'courses': courses, 'logged_in': logged_in})

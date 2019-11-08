@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <h2>All Courses Form</h2>
+    <form id="make_course" method="post">
+        {% for course in courses %}
+            <div class="{{course.course_number}}_{{course.group_number}}">
+                <h4>{{ course.name }}</h4>
+                <div>{{course.department}}</div>
+                <div>{{course.course_days}}</div>
+                <div>{{course.start_time}} {{course.end_time}}</div>
+                <div>{{course.teacher}}</div>
+            </div>
+
+        {% endfor %}
+    </form>
+{% endblock %}
