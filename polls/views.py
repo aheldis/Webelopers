@@ -20,9 +20,11 @@ def signup(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
+            first_name = form.cleaned_data.get('first_name')
+            last_name = form.cleaned_data.get('last_name')
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
+            user = authenticate(first_name=first_name, last_name=last_name, username=username, password=raw_password)
             logged_in = True
             login(request, user)
             return render(request, 'home.html', {'form': form, 'logged_in': logged_in})
@@ -65,7 +67,7 @@ def contact_us(request):
             email = form.cleaned_data['email']
             text = form.cleaned_data['text']
             if 10 <= len(text) <= 250:
-                send_mail(title, text, email, ["webe19lopers@gmail.com"], False)
+                send_mail(title, text + email, email, ["webe19lopers@gmail.com"], False)
                 return render(request, 'contactForm.html', {'form': form, 'logged_in': logged_in, 'error': False})
             return render(request, 'contactForm.html', {'form': form, 'logged_in': logged_in, 'error': True})
     else:
@@ -75,4 +77,5 @@ def contact_us(request):
 
 def profile(request):
     global user
+    print(user)
     return render(request, 'profile.html', {'user': user, 'logged_in': logged_in})
