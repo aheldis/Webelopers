@@ -16,7 +16,9 @@ class LogInForm(AuthenticationForm):
 
 
 class ContactForm(forms.Form):
-    text = forms.CharField(min_length=10, max_length=250, required=False)
+    title = forms.CharField(required=False)
+    email = forms.CharField(required=False)
+    text = forms.CharField(required=False)
 
     class Meta:
         fields = ('title', 'email', 'text')

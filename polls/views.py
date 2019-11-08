@@ -50,11 +50,11 @@ def my_view(request):
 def contact_us(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
-        if form.is_valid():
-            title = form.cleaned_data.get('title')
-            email = form.cleaned_data.get('email')
-            text = form.cleaned_data.get('text')
-            return render(request, 'contactForm.html', {'form': form, 'logged_in': False})
+        text = form.cleaned_data['text']
+        if 10 <= len(text) <= 250:
+            form.save()
+            return render(request, 'contactForm.html', {'form': form, 'error': False})
+        return render(request, 'contactForm.html', {'form': form, 'error': True})
     else:
         form = ContactForm()
-    return render(request, 'contactForm.html', {'form': form, 'logged_in': False})
+    return render(request, 'contactForm.html', {'form': form, 'error': True})

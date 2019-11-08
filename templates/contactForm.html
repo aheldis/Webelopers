@@ -5,7 +5,11 @@
     <form method="post" id="contact_us_form">
         {% csrf_token %}
         {{ form.as_p }}
-
-        <button name="submit" type="submit">sign up</button>
+        <div id=”done”>
+            {% if error == False %}
+                درخواست شما ثبت شد
+            {% endif %}
+        </div>
+        <button name="submit" type="submit">submit</button>
     </form>
 {% endblock %}
