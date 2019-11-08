@@ -8,13 +8,13 @@
 <body>
 <div class="topnav" id="navbar">
     {% if logged_in == False %}
-        <a id="login" href="http://127.0.0.1:8000/login">log in</a>
-        <a id="register" href="http://127.0.0.1:8000/signup">register</a>
+        <a id="login" href="/login/">log in</a>
+        <a id="register" href="/signup/">register</a>
     {% endif %}
     {% if logged_in == True %}
         <a id="logout">logout</a>
     {% endif %}
-    <a class="active" id="homepage" href="http://127.0.0.1:8000">Home</a>
+    <a class="active" id="homepage" href="/">Home</a>
 </div>
 {% block content %}
 {% endblock %}
