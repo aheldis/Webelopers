@@ -11,16 +11,11 @@
         <a id="login" href="/login/">log in</a>
         <a id="register" href="/signup/">register</a>
     {% endif %}
+    {% if logged_in == True %}
+        <a id="logout" href="/logout/">logout</a>
 
-    <a id="logout" href="/logout/">
-        {% if logged_in == True %}
-            logout</a>
-        {% endif %}
-    <a id="profile" href="/profile/">
-        {% if logged_in == True %}
-            profile
-        {% endif %}
-    </a>
+        <a id="profile" href="/profile/">profile</a>
+    {% endif %}
     <a id="panel" href="/panel/"></a>
     <a class="active" id="homepage" href="/">Home</a>
     <a id="contact_us" href="/contact_us">contact us</a>
