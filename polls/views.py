@@ -96,3 +96,7 @@ def setting(request):
     else:
         form = SettingForm()
     return render(request, 'settingForm.html', {'form': form, 'user': user, 'logged_in': logged_in})
+
+
+def panel(request):
+    return render(request, 'panel.html', {'logged_in': logged_in})
