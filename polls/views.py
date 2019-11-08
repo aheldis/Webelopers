@@ -63,7 +63,6 @@ def contact_us(request):
             title = form.cleaned_data['title']
             email = form.cleaned_data['email']
             text = form.cleaned_data['text']
-            print(text)
             if 10 <= len(text) <= 250:
                 send_mail(title, text, email, ["webe19lopers@gmail.com"], False)
                 return render(request, 'contactForm.html', {'form': form, 'logged_in': logged_in, 'error': False})
