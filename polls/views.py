@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.core.mail import send_mail
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from polls.forms import SignUpForm, LogInForm, ContactForm
 
@@ -8,10 +8,11 @@ logged_in = False
 user = None
 
 
-def html_start(request):
+def logout(request):
     global logged_in
     logged_in = False
-    return render(request, 'home.html', {'logged_in': logged_in})
+    return redirect('home')
+    # return render(request, 'home.html', {'logged_in': logged_in})
 
 
 def home(request):
