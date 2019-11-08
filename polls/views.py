@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 
-from polls.forms import SignUpForm, LogInForm, ContactForm
+from polls.forms import SignUpForm, LogInForm, ContactForm, SettingForm
 
 logged_in = False
 user = None
@@ -32,7 +32,7 @@ def signup(request):
             user = authenticate(first_name=first_name, last_name=last_name, username=username, password=raw_password)
             logged_in = True
             login(request, user)
-            return render(request, 'home.html', {'form': form, 'logged_in': logged_in})
+            return redirect('home')
         else:
             error = ""
             if 'password2' in form.errors.as_data():
@@ -56,7 +56,7 @@ def my_view(request):
             if user is not None:
                 logged_in = True
                 login(request, user)
-                return render(request, 'home.html', {'form': form, 'logged_in': logged_in, 'error': False})
+                return redirect('home')
             return render(request, 'login.html', {'form': form, 'logged_in': logged_in, 'error': True})
 
     else:
@@ -83,3 +83,16 @@ def contact_us(request):
 def profile(request):
     global user
     return render(request, 'profile.html', {'user': user, 'logged_in': logged_in})
+
+
+def setting(request):
+    if request.method == 'POST':
+        form = SettingForm(data=request.POST)
+        if form.is_valid():
+            user.first_name = form.cleaned_data['first_name']
+            user.last_name = form.cleaned_data['last_name']
+            form.save()
+            return render(request, 'profile.html', {'user': user, 'logged_in': logged_in})
+    else:
+        form = SettingForm()
+    return render(request, 'settingForm.html', {'form': form, 'user': user, 'logged_in': logged_in})

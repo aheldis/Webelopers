@@ -19,3 +19,8 @@ class ContactForm(forms.Form):
     title = forms.CharField(required=False)
     email = forms.CharField(required=False)
     text = forms.CharField(widget=forms.Textarea, required=False)
+
+
+class SettingForm(forms.Form):
+    first_name = forms.CharField(required=False)
+    last_name = forms.CharField(required=False)

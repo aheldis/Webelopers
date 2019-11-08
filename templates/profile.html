@@ -3,7 +3,8 @@
 {% block content %}
     {% if user.is_authenticated %}
         <span id="text_first_name">{{ user.get_short_name }}</span>
-        <span id="text_last_name">{{ user.get_full_name. }}</span>
+        <span id="text_last_name">{{ user.last_name }}</span>
         <span id="text_user_name">{{ user.get_username }}</span>
     {% endif %}
+    <a id="setting" href="/setting/">setting</a>
 {% endblock %}
