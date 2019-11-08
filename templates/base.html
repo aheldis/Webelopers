@@ -7,8 +7,10 @@
 </head>
 <body>
 <div class="topnav" id="navbar">
-    <a id="login" href="http://127.0.0.1:8000/login">log in</a>
-    <a id="register" href="http://127.0.0.1:8000/signup">register</a>
+    {% if logged_in == False %}
+        <a id="login" href="http://127.0.0.1:8000/login">log in</a>
+        <a id="register" href="http://127.0.0.1:8000/signup">register</a>
+    {% endif %}
     <a class="active" id="homepage" href="http://127.0.0.1:8000/home">Home</a>
 </div>
 {% block content %}

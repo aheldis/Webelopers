@@ -6,7 +6,7 @@ from polls.forms import SignUpForm, LogInForm
 
 
 def html_start(request):
-    return render(request, 'home.html')
+    return render(request, 'home.html', {'logged_in': False})
 
 
 def signup(request):
@@ -20,10 +20,11 @@ def signup(request):
             # user = User.objects.create_user(username, email, raw_password)
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('home')
+            # return redirect('/home')
+            return render(request, 'home.html', {'form': form, 'logged_in': True})
     else:
         form = SignUpForm()
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'login.html', {'form': form, 'logged_in': False})
 
 
 def my_view(request):
@@ -35,6 +36,8 @@ def my_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
+            return render(request, 'home.html', {'form': form, 'logged_in': True})
+
     else:
         form = LogInForm()
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'login.html', {'form': form, 'logged_in': False})
