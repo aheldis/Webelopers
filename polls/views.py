@@ -71,3 +71,7 @@ def contact_us(request):
     else:
         form = ContactForm()
     return render(request, 'contactForm.html', {'form': form, 'logged_in': logged_in, 'error': True})
+
+
+def profile(request):
+    return
