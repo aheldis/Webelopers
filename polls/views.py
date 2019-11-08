@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
-from polls.forms import SignUpForm, LogInForm
+from polls.forms import SignUpForm, LogInForm, ContactForm
 
 
 def html_start(request):
@@ -45,3 +45,16 @@ def my_view(request):
     else:
         form = LogInForm()
     return render(request, 'login.html', {'form': form, 'logged_in': False})
+
+
+def contact_us(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data.get('title')
+            email = form.cleaned_data.get('email')
+            text = form.cleaned_data.get('text')
+            return render(request, 'contactForm.html', {'form': form, 'logged_in': False})
+    else:
+        form = ContactForm()
+    return render(request, 'contactForm.html', {'form': form, 'logged_in': False})

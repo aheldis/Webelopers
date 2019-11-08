@@ -13,3 +13,10 @@ class LogInForm(AuthenticationForm):
     class Meta:
         model = User
         fields = ('username', 'password', )
+
+
+class ContactForm(forms.Form):
+    text = forms.CharField(min_length=10, max_length=250, required=False)
+
+    class Meta:
+        fields = ('title', 'email', 'text')

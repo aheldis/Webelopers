@@ -5,16 +5,14 @@
     <form method="post" id="register_form">
         {% csrf_token %}
         {{ form.as_p }}
-        {% if error == "The two password fields didn't match." %}
-            <div id=”errors”>
+        <div id=”errors”>
+            {% if error == "The two password fields didn't match." %}
                 گذرواژه و تکرار گذرواژه یکسان نیستند
-            </div>
-        {% endif %}
-        {% if error == "A user with that username already exists." %}
-            <div id=”errors”>
+            {% endif %}
+            {% if error == "A user with that username already exists." %}
                 نام کاربری شما در سیستم موجود است
-            </div>
-        {% endif %}
+            {% endif %}
+        </div>
         <button name="submit" type="submit">sign up</button>
     </form>
 
