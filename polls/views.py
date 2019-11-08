@@ -15,16 +15,14 @@ def signup(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            # email = form.cleaned_data.get('email')
             raw_password = form.cleaned_data.get('password1')
-            # user = User.objects.create_user(username, email, raw_password)
             user = authenticate(username=username, password=raw_password)
             login(request, user)
             # return redirect('/home')
             return render(request, 'home.html', {'form': form, 'logged_in': True})
     else:
         form = SignUpForm()
-    return render(request, 'login.html', {'form': form, 'logged_in': False})
+    return render(request, 'signup.html', {'form': form, 'logged_in': False})
 
 
 def my_view(request):
@@ -36,7 +34,8 @@ def my_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-            return render(request, 'home.html', {'form': form, 'logged_in': True})
+                return render(request, 'home.html', {'form': form, 'logged_in': True, 'error': False})
+            return render(request, 'login.html', {'form': form, 'logged_in': False, 'error': True})
 
     else:
         form = LogInForm()
