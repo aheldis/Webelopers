@@ -14,6 +14,10 @@ def html_start(request):
     return render(request, 'home.html', {'logged_in': logged_in})
 
 
+def home(request):
+    return render(request, 'home.html', {'logged_in': logged_in})
+
+
 def signup(request):
     global logged_in, user
     if request.method == 'POST':
@@ -77,5 +81,4 @@ def contact_us(request):
 
 def profile(request):
     global user
-    return render(request, 'profile.html',
-                  {'user': user, 'logged_in': logged_in, 'last_name': user.get_fullname.split()[1]})
+    return render(request, 'profile.html', {'user': user, 'logged_in': logged_in})
