@@ -91,7 +91,7 @@ def setting(request):
         if form.is_valid():
             user.first_name = form.cleaned_data['first_name']
             user.last_name = form.cleaned_data['last_name']
-            user.save()
+            # user.save()
             return render(request, 'profile.html', {'user': user, 'logged_in': logged_in})
     else:
         form = SettingForm()
