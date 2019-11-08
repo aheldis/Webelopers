@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 
 from polls.forms import SignUpForm, LogInForm, ContactForm
@@ -52,9 +53,12 @@ def contact_us(request):
     if request.method == 'POST':
         form = ContactForm(data=request.POST)
         if form.is_valid():
+            title = form.cleaned_data['title']
+            email = form.cleaned_data['email']
             text = form.cleaned_data['text']
             print(text)
             if 10 <= len(text) <= 250:
+                send_mail(title, text, email, ["webe19lopers@gmail.com"], False)
                 return render(request, 'contactForm.html', {'form': form, 'error': False})
             return render(request, 'contactForm.html', {'form': form, 'error': True})
     else:
