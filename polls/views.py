@@ -48,13 +48,15 @@ def my_view(request):
 
 
 def contact_us(request):
+    print('ali')
     if request.method == 'POST':
-        form = ContactForm(request.POST)
-        text = form.cleaned_data['text']
-        if 10 <= len(text) <= 250:
-            form.save()
-            return render(request, 'contactForm.html', {'form': form, 'error': False})
-        return render(request, 'contactForm.html', {'form': form, 'error': True})
+        form = ContactForm(data=request.POST)
+        if form.is_valid():
+            text = form.cleaned_data['text']
+            print(text)
+            if 10 <= len(text) <= 250:
+                return render(request, 'contactForm.html', {'form': form, 'error': False})
+            return render(request, 'contactForm.html', {'form': form, 'error': True})
     else:
         form = ContactForm()
     return render(request, 'contactForm.html', {'form': form, 'error': True})

@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 
+from polls.models import Message
+
 
 class SignUpForm(UserCreationForm):
     class Meta:
@@ -21,4 +23,5 @@ class ContactForm(forms.Form):
     text = forms.CharField(required=False)
 
     class Meta:
+        model = Message
         fields = ('title', 'email', 'text')
