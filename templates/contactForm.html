@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
     <h2>Contact Form</h2>
-    <form method="post" id="contact_us_form">
+    <form id="contact_us_form">
         {% csrf_token %}
         {{ form.as_p }}
         <div id=”done”>
