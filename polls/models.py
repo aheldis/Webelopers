@@ -12,9 +12,3 @@ class Student(models.Model):
 class Person(models.Model):
     national_id = models.IntegerField()
     age = models.IntegerField()
-
-#
-# class Message(models.Model):
-#     title = models.CharField(max_length=250)
-#     email = models.CharField(max_length=250)
-#     text = models.TextArea()

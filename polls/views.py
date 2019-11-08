@@ -5,6 +5,7 @@ from django.shortcuts import render
 from polls.forms import SignUpForm, LogInForm, ContactForm
 
 logged_in = False
+user = None
 
 
 def html_start(request):
@@ -14,7 +15,7 @@ def html_start(request):
 
 
 def signup(request):
-    global logged_in
+    global logged_in, user
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -38,7 +39,7 @@ def signup(request):
 
 
 def my_view(request):
-    global logged_in
+    global logged_in, user
     if request.method == 'POST':
         form = LogInForm(data=request.POST)
         if form.is_valid():
@@ -64,7 +65,7 @@ def contact_us(request):
             email = form.cleaned_data['email']
             text = form.cleaned_data['text']
             if 10 <= len(text) <= 250:
-                send_mail(title, text, email, ["webe19lopers@gmail.com"], False)
+                send_mail(title, text, email, ["ehsanihani30@yahoo.com"], False)
                 return render(request, 'contactForm.html', {'form': form, 'logged_in': logged_in, 'error': False})
             return render(request, 'contactForm.html', {'form': form, 'logged_in': logged_in, 'error': True})
     else:
@@ -73,4 +74,5 @@ def contact_us(request):
 
 
 def profile(request):
-    return
+    global user
+    return render(request, 'profile.html', {'user': user, 'logged_in': logged_in})
