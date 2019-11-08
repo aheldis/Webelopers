@@ -11,5 +11,5 @@ urlpatterns = [
     path('', html_start, name='html_start'),
     url('signup', signup, name='signup'),
     url('login', my_view, name='login'),
-    url('contact_us', contact_us, name='contact_us')
+    url('contact_us', contact_us, name='contact_us'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
